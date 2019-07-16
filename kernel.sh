@@ -26,7 +26,7 @@ else
         sed -i "50s/.*/CONFIG_LOCALVERSION=\"-Acrux-${RELEASE_VERSION}-${RELEASE_CODENAME}\"/g" arch/arm64/configs/acrux_defconfig
 fi
 
-export ZIPNAME="{VERSION}.zip"
+export ZIPNAME="${VERSION}.zip"
 
 # How much kebabs we need? Kanged from @raphielscape :)
 if [[ -z "${KEBABS}" ]]; then
