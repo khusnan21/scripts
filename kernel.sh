@@ -38,7 +38,7 @@ PATH="/home/nysadev/clang/bin:/home/nysadev/aarch64-linux-android-4.9/bin:${PATH
 make -j${KEBABS} acrux_defconfig O=out
 make -j${KEBABS} CC=clang CROSS_COMPILE=aarch64-linux-android- CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=/home/nysadev/arm-linux-androideabi-4.9/bin/arm-linux-androideabi- O=out
 END=$(date +"%s")
-DIFF=$((START - END))
+DIFF=$((END - START))
 green=`tput setaf 2`
 reset=`tput sgr0`
 cp out/arch/arm64/boot/Image.gz-dtb ../Acrux-AK3
