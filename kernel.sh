@@ -13,7 +13,7 @@ fi
 # Export correct version
 if [[ "$@" =~ "beta"* ]]; then
 	export TYPE=beta
-	export VERSION="Acrux-BETA-${RELEASE}-${BUILDNUMBER}-${CODENAME}"
+	export VERSION="Acrux-BETA-${RELEASE_VERSION}-${DRONE_BUILD_NUMBER}-${RELEASE_CODENAME}"
 	# Be careful if something changes LOCALVERSION line
         sed -i "50s/.*/CONFIG_LOCALVERSION=\"-Acrux-${RELEASE}-${DRONE_BUILD_NUMBER}-${CODENAME}\"/g" arch/arm64/configs/acrux_defconfig
 	export INC="$(echo ${RC} | grep -o -E '[0-9]+')"
