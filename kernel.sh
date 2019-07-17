@@ -41,7 +41,8 @@ Device: <code>MI 8 Lite (platina)</code>
 Compiler: <code>${COMPILER}</code>
 Branch: <code>$(git rev-parse --abbrev-ref HEAD)</code>
 Latest Commit: <code>$(git log --pretty=format:'%h : %s' -1)</code>
-<i>Build started on Drone_CI....</i>" -d chat_id=${CI_CHANNEL_ID} -d parse_mode=HTML
+<i>Build started on Drone Cloud...</i>
+<a href="https://cloud.drone.io/nysadev/acrux/${DRONE_BUILD_NUMBER}">Check the build status here</a>" -d chat_id=${CI_CHANNEL_ID} -d parse_mode=HTML
 curl -s -X POST https://api.telegram.org/bot${BOT_API_KEY}/sendMessage -d text="Build started for revision ${DRONE_BUILD_NUMBER}" -d chat_id=${KERNEL_CHAT_ID} -d parse_mode=HTML
 
 # Make is shit so I have to pass thru some toolchains
