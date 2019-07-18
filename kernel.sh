@@ -41,7 +41,7 @@ Device: <code>MI 8 Lite (platina)</code>
 Compiler: <code>${COMPILER}</code>
 Branch: <code>$(git rev-parse --abbrev-ref HEAD)</code>
 Latest Commit: <code>$(git log --pretty=format:'%h : %s' -1)</code>
-Changelog: ${DRONE_REPO_URL}/compare/$DRONE_COMMIT_BEFORE...$DRONE_COMMIT_AFTER
+Changelog: ${DRONE_REPO_LINK}/compare/$DRONE_COMMIT_BEFORE...$DRONE_COMMIT_AFTER
 <i>Build started on Drone Cloud...</i>
 Check the build status here: https://cloud.drone.io/nysadev/acrux/${DRONE_BUILD_NUMBER}" -d chat_id=${CI_CHANNEL_ID} -d parse_mode=HTML
 curl -s -X POST https://api.telegram.org/bot${BOT_API_KEY}/sendMessage -d text="Build started for revision ${DRONE_BUILD_NUMBER}" -d chat_id=${KERNEL_CHAT_ID} -d parse_mode=HTML
