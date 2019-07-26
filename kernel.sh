@@ -54,7 +54,7 @@ PATH="/drone/src/clang/bin:${PATH}"
 START=$(date +"%s")
 make O=out ARCH=arm64 acrux_defconfig
 if [[ "$@" =~ "clang"* ]]; then
-        make -j${KEBABS} O=out ARCH=arm64 CC=clang CLANG_TRIPLE="aarch64-linux-gnu-" CROSS_COMPILE="/drone/src/gcc/bin/aarch64-linux-gnu-" CROSS_COMPILE_ARM32="/drone/src/gcc32/bin/arm-linux-gnueabi-"
+        make -j${KEBABS} O=out ARCH=arm64 CC=clang CLANG_TRIPLE="aarch64-linux-gnu-" CROSS_COMPILE="/drone/src/gcc/bin/aarch64-raphiel-elf-" CROSS_COMPILE_ARM32="/drone/src/gcc32/bin/arm-maestro-linux-gnueabi-"
 elif [[ "$@" =~ "gcc10"* ]]; then
 	make -j${KEBABS} O=out ARCH=arm64 CROSS_COMPILE="/drone/src/gcc/bin/aarch64-raphiel-elf-" CROSS_COMPILE_ARM32="/drone/src/gcc32/bin/arm-maestro-linux-gnueabi-"
 else
