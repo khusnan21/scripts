@@ -6,6 +6,8 @@ cd ..
 # Export compiler type
 if [[ "$@" =~ "clang"* ]]; then
 	export COMPILER="Clang 9.x"
+elif [[ "$@" =~ "gcc10"* ]]; then
+        export COMPILER="GCC 10 Experimental"
 else
 	export COMPILER="GCC 9.1 bare-metal"
 fi
@@ -53,6 +55,8 @@ START=$(date +"%s")
 make O=out ARCH=arm64 acrux_defconfig
 if [[ "$@" =~ "clang"* ]]; then
         make -j${KEBABS} O=out ARCH=arm64 CC=clang CLANG_TRIPLE="aarch64-linux-gnu-" CROSS_COMPILE="/drone/src/gcc/bin/aarch64-linux-gnu-" CROSS_COMPILE_ARM32="/drone/src/gcc32/bin/arm-linux-gnueabi-"
+elif [[ "$@" =~ "gcc10"* ]]; then
+	make -j${KEBABS} O=out ARCH=arm64 CROSS_COMPILE="/drone/src/gcc/bin/aarch64-maestro-linux-gnu-" CROSS_COMPILE_ARM32="/drone/src/gcc32/bin/arm-maestro-linux-gnueabi-"
 else
 	make -j${KEBABS} O=out ARCH=arm64 CROSS_COMPILE="/drone/src/gcc/bin/aarch64-elf-" CROSS_COMPILE_ARM32="/drone/src/gcc32/bin/arm-eabi-"
 fi
@@ -70,7 +74,7 @@ if (($((CHECKER / 1048576)) > 5)); then
 	curl -s -X POST https://api.telegram.org/bot${BOT_API_KEY}/sendMessage -d text="Build compiled successfully in $((DIFF / 60)) minute(s) and $((DIFF % 60)) seconds for Platina" -d chat_id=${CI_CHANNEL_ID} -d parse_mode=HTML
 	curl -F chat_id="${CI_CHANNEL_ID}" -F document=@"$(pwd)/${ZIPNAME}" https://api.telegram.org/bot${BOT_API_KEY}/sendDocument
 else
-	curl -s -X POST https://api.telegram.org/bot${BOT_API_KEY}/sendMessage -d text="Build for platina throwing err0rs yO" -d chat_id=${CI_CHANNEL_ID}
+	curl -s -X POST https://api.telegram.org/bot${BOT_API_KEY}/sendMessage -d text="Error in build!!" -d chat_id=${CI_CHANNEL_ID}
 	exit 1;
 fi
 
