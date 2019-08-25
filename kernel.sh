@@ -8,6 +8,8 @@ if [[ "$@" =~ "clang"* ]]; then
 	export COMPILER="Clang 9.x"
 elif [[ "$@" =~ "gcc10"* ]]; then
         export COMPILER="GCC 10 Experimental"
+elif [[ "$@" =~ "gcc4.9"* ]]; then
+	export COMPILER="GCC 4.9 Meme"
 else
 	export COMPILER="GCC 9.1 bare-metal"
 fi
@@ -57,6 +59,8 @@ if [[ "$@" =~ "clang"* ]]; then
         make -j${KEBABS} O=out ARCH=arm64 CC=clang CLANG_TRIPLE="aarch64-linux-gnu-" CROSS_COMPILE="/drone/src/gcc/bin/aarch64-linux-gnu-" CROSS_COMPILE_ARM32="/drone/src/gcc32/bin/arm-maestro-linux-gnueabi-"
 elif [[ "$@" =~ "gcc10"* ]]; then
 	make -j${KEBABS} O=out ARCH=arm64 CROSS_COMPILE="/drone/src/gcc/bin/aarch64-raphiel-elf-" CROSS_COMPILE_ARM32="/drone/src/gcc32/bin/arm-maestro-linux-gnueabi-"
+elif [[ "$@" =~ "gcc4.9"* ]]; then
+	make -j${KEBABS} O=out ARCH=arm64 CROSS_COMPILE="/drone/src/gcc/bin/aarch64-linux-android-"
 else
 	make -j${KEBABS} O=out ARCH=arm64 CROSS_COMPILE="/drone/src/gcc/bin/aarch64-elf-" CROSS_COMPILE_ARM32="/drone/src/gcc32/bin/arm-eabi-"
 fi
