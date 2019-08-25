@@ -10,6 +10,11 @@ if [[ "$@" =~ "clang"* ]]; then
 elif [[ "$@" =~ "gcc10"* ]]; then
 	git clone https://github.com/RaphielGang/aarch64-raph-linux-android -b elf --depth=1 gcc
         git clone https://github.com/baalajimaestro/arm-maestro-linux-gnueabi/ -b 240719 --depth=1 gcc32
+elif [[ "$@" =~ "gcc4.9"* ]]; then
+	git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 gcc
+	cd gcc
+	git reset --hard 75c0ace0eb9ba47c11df56971e7f63f2ebaa9fbd
+	cd ..
 else
 	git clone https://github.com/kdrag0n/aarch64-elf-gcc -b 9.x --depth=1 gcc
 	git clone https://github.com/kdrag0n/arm-eabi-gcc -b 9.x --depth=1 gcc32
