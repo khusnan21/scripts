@@ -15,6 +15,10 @@ elif [[ "$@" =~ "gcc4.9"* ]]; then
 	cd gcc
 	git reset --hard 75c0ace0eb9ba47c11df56971e7f63f2ebaa9fbd
 	cd ..
+	git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 gcc32
+	cd gcc32
+	git reset --hard 10ddded24ecdbdeaa4ac57d49962ca06e9c1ceaa
+	cd ..
 else
 	git clone https://github.com/kdrag0n/aarch64-elf-gcc -b 9.x --depth=1 gcc
 	git clone https://github.com/kdrag0n/arm-eabi-gcc -b 9.x --depth=1 gcc32
