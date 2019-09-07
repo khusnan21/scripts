@@ -51,10 +51,13 @@ make O=out ARCH=arm64 procyon_defconfig
 if [[ "$@" =~ "clang"* ]]; then
         make -j${KEBABS} O=out ARCH=arm64 CC=clang CLANG_TRIPLE="aarch64-linux-gnu-" CROSS_COMPILE="/drone/src/gcc/bin/aarch64-linux-gnu-" CROSS_COMPILE_ARM32="/drone/src/gcc32/bin/arm-maestro-linux-gnueabi-"
 elif [[ "$@" =~ "gcc10"* ]]; then
+	USEDCC="/drone/src/gcc/bin/aarch64-raphiel-elf-"
 	make -j${KEBABS} O=out ARCH=arm64 CROSS_COMPILE="/drone/src/gcc/bin/aarch64-raphiel-elf-" CROSS_COMPILE_ARM32="/drone/src/gcc32/bin/arm-maestro-linux-gnueabi-"
 elif [[ "$@" =~ "gcc4.9"* ]]; then
+	USEDCC="/drone/src/gcc/bin/aarch64-linux-android-"
 	make -j${KEBABS} O=out ARCH=arm64 CROSS_COMPILE="/drone/src/gcc/bin/aarch64-linux-android-" CROSS_COMPILE_ARM32="/drone/src/gcc32/bin/arm-linux-androideabi-gcc"
 else
+	USEDCC="/drone/src/gcc/bin/aarch64-elf-"
 	make -j${KEBABS} O=out ARCH=arm64 CROSS_COMPILE="/drone/src/gcc/bin/aarch64-elf-" CROSS_COMPILE_ARM32="/drone/src/gcc32/bin/arm-eabi-"
 fi
 END=$(date +"%s")
@@ -67,8 +70,8 @@ MODULES="$(find "${OUTDIR}" -name '*.ko')"
 if [[ -n ${MODULES} ]]; then
     for MOD in ${MODULES}; do
         "${CROSS_COMPILE}"strip --strip-unneeded "${MOD}"
-        if [[ ${MOD} == "wlan.ko" ]]; then
-		cp -v "${MOD}" "$(pwd)/anykernel/modules/vendor/lib/modules/pronto/"
+        if [[ ${MOD} == "*wlan.ko" ]]; then
+		cp -v "${MOD}" "$(pwd)/anykernel/modules/vendor/lib/modules/pronto/pronto_wlan.ko"
 	else
         	cp -v "${MOD}" "$(pwd)/anykernel/modules/system/lib/modules/"
 	fi
