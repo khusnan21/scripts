@@ -61,13 +61,15 @@ END=$(date +"%s")
 DIFF=$(( END - START))
 
 cp $(pwd)/out/arch/arm64/boot/Image.gz-dtb $(pwd)/anykernel
-mkdir $(pwd)/anykernel/modules/vendor/lib/modules
 
 MODULES="$(find "${OUTDIR}" -name '*.ko')"
 if [[ -n ${MODULES} ]]; then
     for MOD in ${MODULES}; do
         "${CROSS_COMPILE}"strip --strip-unneeded "${MOD}"
-        cp -v "${MOD}" "$(pwd)/anykernel/modules/vendor/lib/modules"
+        if [[ ${MOD} == "wlan.ko" ]]; then
+		cp -v "${MOD}" "$(pwd)/anykernel/modules/vendor/lib/modules/pronto/"
+	fi
+        cp -v "${MOD}" "$(pwd)/anykernel/modules/system/lib/modules/"
     done
 fi
 
