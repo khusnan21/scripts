@@ -61,6 +61,15 @@ END=$(date +"%s")
 DIFF=$(( END - START))
 
 cp $(pwd)/out/arch/arm64/boot/Image.gz-dtb $(pwd)/anykernel
+mkdir $(pwd)/anykernel/modules/vendor/lib/modules
+
+MODULES="$(find "${OUTDIR}" -name '*.ko')"
+if [[ -n ${MODULES} ]]; then
+    for MOD in ${MODULES}; do
+        "${CROSS_COMPILE}"strip --strip-unneeded "${MOD}"
+        cp -v "${MOD}" "$(pwd)/anykernel/modules/vendor/lib/modules"
+    done
+fi
 
 # POST ZIP OR FAILURE
 cd anykernel
