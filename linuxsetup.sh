@@ -16,8 +16,8 @@ sed -i 's#.bash_aliases#aliases/aliases#g' ~/.bashrc
 source ~/.bashrc
 
 # Git configurations
-git config --global user.name "nysascape"
-git config --global user.email "nysadev@raphielgang.org"
+git config --global user.name "khusnan21"
+git config --global user.email "khusnan21@gmail.com"
 git config --global credential.helper store
 
 # GCC 9 is always a good thing to have
