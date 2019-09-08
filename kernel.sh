@@ -70,7 +70,7 @@ MODULES="$(find "${OUTDIR}" -name '*.ko')"
 if [[ -n ${MODULES} ]]; then
     for MOD in ${MODULES}; do
         "${CROSS_COMPILE}"strip --strip-unneeded "${MOD}"
-        if [[ ${MOD} == "*wlan.ko" ]]; then
+        if [[ ${MOD} == *wlan.ko ]]; then
 		cp -v "${MOD}" "$(pwd)/anykernel/modules/vendor/lib/modules/pronto/pronto_wlan.ko"
 	else
         	cp -v "${MOD}" "$(pwd)/anykernel/modules/system/lib/modules/"
